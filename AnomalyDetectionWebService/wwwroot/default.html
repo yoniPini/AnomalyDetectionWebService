@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html ondrop="dragHtml=false;allowDrop(event);"  ondragover="dragHtml=true;allowDrop(event);"
+      ondragleave="dragHtml=false;allowDrop(event);">
+<head>
+    <link rel="icon" href="favicon.ico">
+    <meta charset="utf-8" />
+    <title>Flight Inspection</title>
+    <!--This is the styling of the grid.-->
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: minmax(0, 4fr) minmax(0, 1fr);
+            grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);
+            grid-template-areas:
+                'graph list'
+                'table dropbox';
+            grid-gap: 4px;
+            background-color: #2196F3;
+            padding: 1px;
+        }
+
+            .grid-container > div {
+                background-color: rgba(255, 255, 255, 0.8);
+                text-align: center;
+                padding: 1px 0;
+                font-size: 30px;
+            }
+
+        .graph_css {
+            grid-area: graph;
+        }
+
+        .list_css {
+            grid-area: list;
+        }
+
+        .table_css {
+            grid-area: table;
+        }
+
+        .dropbox_css {
+            grid-area: dropbox;
+        }
+    </style>
+</head>
+<body>
+    <!--All the view objects are contained inside this grid.-->
+    <div class="grid-container">
+        <!--This is the graph-->
+        <div class="graph_css" id="graph">
+            <canvas id="myChart"></canvas>
+        </div>
+        <!--This table contain all the models that are in the server.-->
+        <div id="myGrid_model_list" class="list_css ag-theme-alpine">
+            <!--This button can remove the selected model from the server.-->
+            <input id="remove_button" type="submit" value="remove" onclick="remove_selected(event)" />
+            <span style="color: red; font-weight: bold; opacity: 0; font-size: small;" id="blink_txt">updated</span>
+        </div>
+        <!--This table contain the data.-->
+        <div id="myGrid_table" class="table_css ag-theme-alpine"></div>
+        <!--This is the dropzone that receive the CSV file from the user-->
+        <div class="dropbox_css" id="drop">
+            <br />
+            <span style="font-size:medium;">Please select your action:</span><br />
+            <input type="radio" id="show_local" name="user_action" value="graph" onchange="disable_buttons(event)">
+            <label for="show_local" style="font-size:small;">Only show in graph</label><br/>
+            <!--User select if he want to laern the flight or detect anomalies.-->
+            <input type="radio" checked="checked" id="upload" name="user_action" value="upload" onchange="enable_buttons(event)">
+            <label for="upload" style="font-size:small;">New model</label>
+            <input type="radio" id="anomaly" name="user_action" value="anomaly" onchange="disable_buttons(event)">
+            <label for="anomaly" style="font-size:small;">Detect</label>
+            <br />
+            <!--If the user want to learn he can choose what algorithem to chhose.
+        This will be shown only if the learn option is selected-->
+            <div id="algo_detection">
+                <span style="font-size:medium;">Please select detection algorithm:</span><br />
+                <input type="radio" checked="checked" id="linear" name="detection_type" value="linear">
+                <label for="linear" style="font-size:small;">Linear Regression</label>
+                <input type="radio" id="hybrid" name="detection_type" value="hybrid">
+                <label for="hybrid" style="font-size:small;">Hybrid</label><br />
+            </div>
+            <!--The dropzone himself.-->
+            <div id="The_Drop" style="border:3px solid black; height:150px;" ondrop="dragDropZone=false;dropHandler(event);"
+                 ondragover="dragDropZone=true;allowDrop(event);" ondragleave="dragDropZone=false;allowDrop(event);">
+                <span style="font-size:small;" id="The_File">Drop the CSV file here</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Include the libraries (MIT license: for educational purpose): Table,  Graph, jQuery-->
+    <!-- https://www.ag-grid.com/ -->
+    <script src="MIT/ag-grid-community.min.js"></script>
+    <!-- https://www.chartjs.org/ license:MIT-->
+    <script src="MIT/chart.min.js"></script>
+    <script type="text/javascript"
+            src="MIT/jquery-3.6.0.min.js"></script>
+
+    <!--Developer libraries:-->
+    <script src="graph.js"></script>
+    <script src="list.js"></script>
+    <script src="table.js"></script>
+    <script src="./dropzone.js"></script>
+    <script src="model.js"></script>
+
+
+
+</body>
+</html>

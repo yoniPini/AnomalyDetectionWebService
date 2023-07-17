@@ -1,0 +1,18 @@
+Classes which in use to define types:
+
+MODEL               => first defined in    MODEL.cs
+CorrelatedFeatures  => first defined in    AnomalyDetection.cs
+ExtendedModelInfo   => first defined in    IO_Utils.cs
+Predict_Data        => first defined in    DATA.cs
+Train_Data          => first defined in    DATA.cs
+ANOMALY             => first defined in    ANOMALY.cs
+Point               => first defined in    MathUtils.cs
+Line                => first defined in    MathUtils.cs
+Circle              => first defined in    MathUtils.cs
+Counter             => first defined in    AnomalyDetectionController.cs
+Span                => first defined in    AnomalyDetection.cs;  AnomalyDetectorsManager.cs; ANOMALY.cs;
+								as ALIAS for List<long> which should contain exactly 2 elements:
+								[start(inclusive), end(exclusive)]
+
+See also Uri_And_UML.pdf at root folder of the github repository,
+for "raw short-text about the server-side classes"
